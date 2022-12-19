@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import Search from "./components/Search";
 import Mainweather from "./components/Mainweather"
 //import SayHi, { SayHello } from "./components/WeatherItem";
-import fakeWeatherData from "./fakeWeatherData.json";
+import FakeWeather from "./data/Fakeweather.json";
 //import MyName from "./components/MyName";
-import clear from "./img/weather-icons/clear.svg";
-import cloudy from "./img/weather-icons/partlycloudy.svg";
+// import clear from "./img/weather-icons/clear.svg";
+// import cloudy from "./img/weather-icons/partlycloudy.svg";
 import WeatherItem from "./components/WeatherItem"
 import "./App.css";
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "London",
+      FakeWeather,
+
     };
   }
 
@@ -24,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Search />
+        <Search/>
         <section className="app__main">
           <Mainweather />
           <WeatherItem/>

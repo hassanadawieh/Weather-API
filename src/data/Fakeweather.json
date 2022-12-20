@@ -143,14 +143,14 @@
         "humidity": 85,
         "temp_kf": 0
       },
-      "weather": [
+      "weather": 
         {
           "id": 803,
           "main": "Clouds",
           "description": "broken clouds",
           "icon": "04n"
         }
-      ],
+      ,
       "clouds": {
         "all": 76
       },

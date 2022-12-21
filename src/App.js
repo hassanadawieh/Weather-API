@@ -1,60 +1,55 @@
-import React, { Component } from "react";
-import Search from "./components/Search";
-import Mainweather from "./components/Mainweather";
-//import SayHi, { SayHello } from "./components/WeatherItem";
-import FakeWeather from "./data/Fakeweather.json";
-//import MyName from "./components/MyName";
-// import clear from "./img/weather-icons/clear.svg";
-// import cloudy from "./img/weather-icons/partlycloudy.svg";
-import WeatherItem from "./components/WeatherItem";
+import React, { Component ,  setState }  from "react";
 import "./App.css";
+import Search from "./components/Search";
+import WeatherItem from "./components/WeatherItem";
+import Mainweather from "./components/Mainweather";
+import FakeWeather from "./data/Fakeweather.json";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      FakeWeather,
-    };
+      allDay: FakeWeather,
+      isLoaded: false
+    }
   }
+  fetchData = (n) => {
+    let fetchData = `http://api.openweathermap.org/data/2.5/forecast?q=${n}&cnt=8&units=metric&appid=ce8c46325e27b55982188b9bacdff1a6`;
+    fetch(fetchData)
+    // .then(res => res.json())
+    // .then(data => {console.log(data); this.setState({allDay: data}); this.setState({isLoaded: true})})
+    .then(res => {return res.json();
+  })
+  .then(data => {
+    if(data.cod!='200'){
+      alert('PLease enter a valid name')
+
+    }
+    else{
+      {console.log(data); this.setState({allDay: data}); this.setState({isLoaded: true})}
+
+    }
+  }
+  )
+
+  }
+
   render() {
-    function hoursArray(FakeWeather) {
-      let hours = [];
-      for (let i = 5; i <= 11; i++) {
-        hours.push(FakeWeather.list[i].dt_txt.slice(11, 16));
-      }
-      return hours;
-    }
-    function temArray(FakeWeather) {
-      let temp = [];
-      for (let i = 5; i <= 11; i++) {
-        temp.push(FakeWeather.list[i].main.temp.toFixed());
-      }
-      return temp;
-    }
-
-
     return (
       <div className="app">
-        <Search />
-        <section className="app__main">
-          <Mainweather
-           
-            tempMin={(
-              this.state.FakeWeather.list[4].main.temp_min - 273.15
-            ).toFixed()}
-            tempMax={(
-              this.state.FakeWeather.list[4].main.temp_max - 273.15
-            ).toFixed()}
-            humidity={this.state.FakeWeather.list[4].main.humidity}
-            pressure={this.state.FakeWeather.list[4].main.pressure}
-          />
-          <WeatherItem
-            hourlyArray={hoursArray(this.state.FakeWeather)}
-            tempArray={temArray(this.state.FakeWeather)}
-            
-          />
-        </section>
+        <Search event={this.fetchData}/>
+        <main>
+          {this.state.isLoaded && <Mainweather
+            des={this.state.allDay.list[0].weather[0].description}
+            minT={this.state.allDay.list[0].main.temp_min}
+            maxT={this.state.allDay.list[0].main.temp_max}
+            humidity={this.state.allDay.list[0].main.humidity}
+            pressure={this.state.allDay.list[0].main.pressure}
+            src={this.state.allDay.list[0].weather[0].id} />}
+          {this.state.isLoaded && <WeatherItem data={this.state.allDay.list.slice(1, 7)} />}
+        </main>
       </div>
     );
-  }
-}
+}}
+//step 7 is already done with step 6 
 export default App;
+ 

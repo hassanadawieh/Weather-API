@@ -1,39 +1,30 @@
 import React from "react";
 import clear from "../img/weather-icons/clear.svg";
 // import "./Search.css";
-import "../App.css";
+import "../App.css"
 class Search extends React.Component {
-  //   state = {
-  //     input: ""
-  //   };
-
-  //   render() {
-  //     return (
-  //       <div>
-  //         {this.state.input}
-  //         <input
-  //           type="text"
-  //           id="input-name"
-  //           onChange={event => {
-  //             this.setState({ input: event.target.value });
-  //           }}
-  //         />
-  //         <button
-  //           onClick={event => {
-  //             this.props.handleInput(this.state.input);
-  //           }}
-  //         >
-  //           Say Hello
-  //         </button>
-  //       </div>
-  //     );
-  //   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: "",
+    };
+  }
   render() {
     return (
-      <header className="app__header">
-        <input typeof="text" placeholder="London"></input>
-        <button>FIND WEATHER</button>
-      </header>
+      <div>
+        <header id="app__header">
+          <input
+            name="city"
+            type="text"
+            className="searching"
+            onChange={(e) => this.setState({ input: e.target.value })}
+            placeholder="Type in a city name"
+          />
+          <button onClick={(e) => this.props.event(this.state.input)}>
+            Find Weather
+          </button>
+        </header>
+      </div>
     );
   }
 }
